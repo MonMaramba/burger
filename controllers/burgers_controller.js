@@ -16,12 +16,11 @@ router.get("/", function(req, res){
 
 router.post("/api/burgers", function(req, res){
     burger.insertOne([
-        "burger_name", "devoured"
-    ], [
-        req.body.burger_name,
-    ], function(res) {
-        res.json({ id: res.insertId});
-    });
+        req.body.burger_name
+    ], function(){
+        res.redirect("/");
+    })
+    
 });
 
 router.put("/api/burger/:id", function(req, res) {
@@ -31,12 +30,8 @@ router.put("/api/burger/:id", function(req, res) {
 
     burger.updateOne({
         devoured: req.body.devoured
-    }, condition, function(result){
-        if (result.changedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
+    }, condition, function(){
+       res.redirect("/");
     })
 })
 

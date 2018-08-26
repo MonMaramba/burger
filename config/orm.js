@@ -37,23 +37,20 @@ var orm = {
             cb(result);
         });
     },
-    insertOne: function(tableInput, cols, cb) {
-        var queryString = "INSERT INTO " + table;
+    insertOne: function(tableInput, value, cb) {
+		var queryString = 'INSERT INTO ' + tableInput; 
 
-        queryString += " (";
-        queryString += cols.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
+		queryString += '(burger_name, devoured) VALUES ("'; 
+		queryString += value; 
+		queryString += '", false);'; 
 
-        console.log(queryString);
-
-        connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result){
-            if (err) throw err;
-            console.log(result);
-        });
-    },    
+		connection.query(queryString, function(err, result) {
+			if (err) {
+				throw err; 
+			}
+			cb(result);
+		});
+	}, 
         updateOne: function(tableInput, objColVals, condition, cb) {
             var queryString = "UPDATE" + table;
 

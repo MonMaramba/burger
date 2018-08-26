@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <img src="assets/img/burger.png">
   <h1>Eat-Da-Burger!</h1>
 
@@ -7,51 +7,47 @@
 
     <div class="col-sm-6">
       <h2>Burgers to Eat!</h2>
-      {{#each burgers}}
-        {{#unless this.devoured}}
-          <form id="update">
-            <input type="hidden" name="devoured" value="true">
-            <button class="btn btn-danger" type="submit">Devour it!</button>
-          </form>
-          <div class="well">
-            {{this.id}}. {{this.burger_name}}
-          </div>
-        {{/unless}}
-      {{/each}}
+      {{#each burgers}} {{#unless this.devoured}}
+      <form id="update">
+        <input type="hidden" name="devoured" value="true">
+        <button class="btn btn-danger" type="submit">Devour it!</button>
+      </form>
+      <div class="well">
+        {{this.id}}. {{this.burger_name}}
+      </div>
+      {{/unless}} {{/each}}
     </div>
 
     <div class="col-sm-6">
       <h2>Burgers Devoured!</h2>
-      {{#each burgers}}
-        {{#if this.devoured}}
-          <div class="well devoured">
-            {{this.id}}. {{this.burgerName}}
-          </div>
-        {{/if}}
-      {{/each}}
+      {{#each burgers}} {{#if this.devoured}}
+      <div class="well devoured">
+        {{this.id}}. {{this.burger_name}}
       </div>
+      {{/if}} {{/each}}
+    </div>
 
   </div>
 
   <h2>Enter a famours burger that you want to eat</h2>
-  
+
   <form id="burger_name">
-    <textarea name="burger_name"></textarea>
+    <textarea id="burger_name"></textarea>
     <button class="btn btn-warning" id="go" type="submit">Submit</button>
   </form>
 
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-  $("#go").on("click", function(event){
+  $("#go").on("click", function (event) {
     event.preventDefault();
     var newBurger = {
-      burger_name: $(burger_name).val().trim()
-     }
-  
-    $.post("/api/burgers", newBurger).then(function(data){
+      burger_name: $("#burger_name").val().trim()
+    }
+
+    $.post("/api/burgers", newBurger).then(function (data) {
       console.log(data);
     });
-       
-});
+
+  });
 </script>

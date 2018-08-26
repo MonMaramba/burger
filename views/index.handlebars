@@ -9,7 +9,7 @@
       <h2>Burgers to Eat!</h2>
       {{#each burgers}}
         {{#unless this.devoured}}
-          <form id="update" action="/burgers/devour/{{this.id}}?_method=PUT" method="POST">
+          <form id="update">
             <input type="hidden" name="devoured" value="true">
             <button class="btn btn-danger" type="submit">Devour it!</button>
           </form>
@@ -35,9 +35,23 @@
 
   <h2>Enter a famours burger that you want to eat</h2>
   
-  <form id="burgerName" method="POST">
-    <textarea name="burgerName"></textarea>
-    <button class="btn btn-warning" type="submit">Submit</button>
+  <form id="burger_name">
+    <textarea name="burger_name"></textarea>
+    <button class="btn btn-warning" id="go" type="submit">Submit</button>
   </form>
 
 </div>
+
+<script>
+  $("#go").on("click", function(event){
+    event.preventDefault();
+    var newBurger = {
+      burger_name: $(burger_name).val().trim()
+     }
+  
+    $.post("/api/burgers", newBurger).then(function(data){
+      console.log(data);
+    });
+       
+});
+</script>

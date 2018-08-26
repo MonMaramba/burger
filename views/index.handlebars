@@ -10,7 +10,7 @@
       {{#each burgers}} {{#unless this.devoured}}
       <form id="update">
         <input type="hidden" name="devoured" value="true">
-        <button class="btn btn-danger" type="submit">Devour it!</button>
+        <button class="btn btn-danger" id="devour" type="submit">Devour it!</button>
       </form>
       <div class="well">
         {{this.id}}. {{this.burger_name}}
@@ -29,7 +29,7 @@
 
   </div>
 
-  <h2>Enter a famours burger that you want to eat</h2>
+  <h2>Enter a famous burger that you want to eat</h2>
 
   <form id="burger_name">
     <textarea id="burger_name"></textarea>
@@ -39,15 +39,41 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-  $("#go").on("click", function (event) {
-    event.preventDefault();
-    var newBurger = {
-      burger_name: $("#burger_name").val().trim()
-    }
+  $(document).ready(function () {
+    $("#devour").on("click", function (event) {
+      var id = $(this).data("id");
+      var devourState = {
+        devoured: 1
+      }
 
-    $.post("/api/burgers", newBurger).then(function (data) {
-      console.log(data);
+      $.ajax("/api/burgers" + id, {
+        type: "PUT",
+        data: devourState,
+      }).then(
+        function () {
+          console.log("devour state has changed to " + devourState)
+          location.reload();
+        }
+      );
+
     });
 
+    $("#go").on("click", function (event) {
+      event.preventDefault();
+      var newBurger = {
+        burger_name: $("#burger_name").val().trim()
+      }
+      console.log(newBurger);      
+
+      $.ajax("/api/burgers", {
+        type: "POST",
+        data: newBurger
+    }).then(
+      function() {
+        console.log("New burger waiting to be eaten!");
+        location.reload();
+      }
+    );
+  });
   });
 </script>

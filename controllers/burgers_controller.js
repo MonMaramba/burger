@@ -7,14 +7,15 @@ var router = express.Router();
 router.get("/", function(req, res){
     burger.selectAll(function(data){
         var hbsObject = {
-            burger: data
+            burgers: data
         };
-        console.log(hbsObject);
+        //console.log(hbsObject);
         res.render("index", hbsObject);
     });
 });
 
 router.post("/api/burgers", function(req, res){
+    console.log(req.body.burger_name);
     burger.insertOne(req.body.burger_name, function(result){
         res.json({ id: result.insertId});
     })

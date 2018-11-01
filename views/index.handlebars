@@ -10,7 +10,7 @@
       {{#each burgers}} {{#unless this.devoured}}
       <form id="update">
         <input type="hidden" name="devoured" value="true">
-        <button class="btn btn-danger" id="devour" type="submit">Devour it!</button>
+        <button class="btn btn-danger" id="devour" type="submit">Eat it!</button>
       </form>
       <div class="well">
         {{this.id}}. {{this.burger_name}}

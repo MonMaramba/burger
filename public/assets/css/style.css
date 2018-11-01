@@ -1,5 +1,5 @@
 body {
-    background-image: url("/assets/img/burger.png");
+    background-image: url("/public/assets/img/burger.png");
 }
 
 ul {
@@ -20,4 +20,14 @@ ul {
 
 .form-group {
   margin-bottom: 5px;
+}
+
+form textarea {
+  height:100px;
+  width:25%;
+} 
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
 }

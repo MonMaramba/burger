@@ -1,36 +1,40 @@
-<h1>Eat-Dat-Burger!</h1>
 
-<div class="container">
-  <figure class="box">
-    <ol type="1" id="uneaten-burg">
-      {{#each burgers}}
-        {{#unless devoured}}
-          {{ burgers/burger-block devoured=true}}
-        {{/unless}}
-      {{/each}}
-    </ol>
-  </figure> 
-  <img src="assets/img/BlueBurger.png" id="burger-img" alt="blue-burger">
-  <figure class="box">
-    <ol type="1" id="devoured-burg">
-      {{#each burgers}}
-        {{#if devoured}}
-          <li>
-            {{burger_name}}
-          </li>
-          {{!-- {{> burgers/burger-block devoured=false}} --}}
-        {{/if}}
-      {{/each}}
-    </ol>
-  </figure>
-</div>
-
+<img id = "burger-img" align = "middle" src = "/assets/img/burger.png" alt = "burger image">
+<h1>Add a Burger</h1>
 <form class="create-form">
-  <textarea id="bur" name="burger_name"></textarea>
-  <button type="submit" id="submit-button">Submit</button>
-  <p>Enter a burger you want to eat and then click the "Submit" button</p>
+
+  <div class="form-group">
+    <label for="burg">Burger:</label>
+    <input type="text" id="burg" name="burger_name">
+  </div>
+
+ 
+
+  <button type="submit">Add Burger</button>
 </form>
 
-<footer class="main-footer">
-  <p>Copyright &copy; 2018, Ramon Maramba</p>
-</footer>
+<h1>Burgers!</h1>
+
+<h2>Burgers waiting to be devoured!</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#unless devoured}}
+      <p>{{id}}. {{burger_name}}
+        <span><button type="button" class="devour" data-id="{{this.id}}" data-newdevour=true>
+          {{#if devoured}}devoured!{{else}}devour me!{{/if}}
+        </button></span>
+      </p>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>Devoured Burgers</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#if devoured}}
+      <p>{{id}}. {{burger_name}}</p>
+    {{/if}}
+  {{/each}}
+</ul>
